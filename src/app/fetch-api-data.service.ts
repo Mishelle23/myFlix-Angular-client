@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-//import { catchError } from 'rxjs/internal/operators';
+
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, catchError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 //import { map } from 'rxjs/operators';
 
 const apiUrl = 'https://safe-coast-49930.herokuapp.com';
@@ -13,7 +14,7 @@ const username = localStorage.getItem('username');
 @Injectable({
   providedIn: 'root'
 })
-export class UserRegistrationService {
+export class FetchApiDataService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
   constructor(private http: HttpClient) {
@@ -132,6 +133,8 @@ export class UserRegistrationService {
       .pipe(catchError(this.handleError));
   }
 
+
+
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
@@ -146,7 +149,7 @@ export class UserRegistrationService {
 
 
   // Non-typed response extraction
-  // private extractResponseData(res: Response): any {
+  //private extractResponseData(res: Response): any {
   //  const body = res;
   //  return body || {};
   // }
