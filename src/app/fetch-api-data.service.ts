@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 //import { map } from 'rxjs/operators';
 
-const apiUrl = 'https://safe-coast-49930.herokuapp.com';
+const apiUrl = 'https://safe-coast-49930.herokuapp.com/';
 
 const token = localStorage.getItem('token');
 
