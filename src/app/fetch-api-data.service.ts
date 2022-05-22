@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-//import { map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 const apiUrl = 'https://safe-coast-49930.herokuapp.com/';
 
@@ -41,36 +41,44 @@ export class FetchApiDataService {
         Authorization: 'Bearer' + token,
       }),
     })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError));
   }
 
-  getSingleMovie(): Observable<any> {
+  getSingleMovie(title: any): Observable<any> {
     //const token = localStorage.getItem('token');
-    return this.http.get(apiUrl + 'movies', {
+    return this.http.get(apiUrl + `movies/${title}`, {
       headers: new HttpHeaders({
         Authorization: 'Bearer' + token,
       }),
     })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError));
   }
 
-  getDirector(): Observable<any> {
+  getDirector(name: any): Observable<any> {
     // const token = localStorage.getItem('token');
-    return this.http.get(apiUrl + 'directors/:name', {
+    return this.http.get(apiUrl + `directors/${name}`, {
       headers: new HttpHeaders({
         Authorization: 'Bearer' + token,
       })
-    }).pipe(catchError(this.handleError));
+    }).pipe(
+      map(this.extractResponseData),
+      catchError(this.handleError));
   }
 
-  getGenre(): Observable<any> {
+  getGenre(name: any): Observable<any> {
     //const token = localStorage.getItem('token');
-    return this.http.get(apiUrl + 'genres/:name', {
+    return this.http.get(apiUrl + `genres/${name}`, {
       headers: new HttpHeaders({
         Authorization: 'Bearer' + token
       }),
     })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError));
   }
 
   getFavouriteMovies(): Observable<any> {
@@ -80,17 +88,21 @@ export class FetchApiDataService {
         Authorization: 'Bearer' + token,
       }),
     })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError));
   }
 
-  addFavouriteMovies(movieId: any): Observable<any> {
+  addFavouriteMovies(movieId: string): Observable<any> {
     //const token = localStorage.getItem('token');
-    return this.http.post(apiUrl + `users/${username}/movies/${movieId}`, {
+    return this.http.post(apiUrl + `users/${username}/movies/${movieId}`, null, {
       headers: new HttpHeaders({
         Authorization: 'Bearer' + token,
       })
     })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError));
   }
 
   deleteFavouriteMovies(movieId: any): Observable<any> {
@@ -100,7 +112,9 @@ export class FetchApiDataService {
         Authorization: 'Bearer' + token,
       }),
     })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError));
   }
 
   getUserProfile(): Observable<any> {
@@ -113,14 +127,16 @@ export class FetchApiDataService {
       .pipe(catchError(this.handleError));
   }
 
-  editUserProfile(userData: object): Observable<any> {
+  editUserProfile(userData: any): Observable<any> {
     // const token = localStorage.getItem('token');
     return this.http.put(apiUrl + `users/${username}`, userData, {
       headers: new HttpHeaders({
         Authorization: 'Bearer' + token,
       }),
     })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError));
   }
 
   deleteUserProfile(): Observable<any> {
@@ -130,10 +146,16 @@ export class FetchApiDataService {
         Authorization: 'Bearer' + token,
       }),
     })
-      .pipe(catchError(this.handleError));
+      .pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError));
   }
 
-
+  //Non-typed response extraction
+  private extractResponseData(res: any): any {
+    const body = res;
+    return body || {};
+  }
 
   private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
@@ -146,6 +168,7 @@ export class FetchApiDataService {
     return throwError(
       'Something bad happened; please try again later.');
   }
+
 
 
   // Non-typed response extraction
