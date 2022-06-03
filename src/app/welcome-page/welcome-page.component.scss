@@ -1,0 +1,33 @@
+$backgroundColor: #9abfdb;
+$cardColor: #1175c2;
+$textColor: #04385c;
+$boxShadowColor: #c3ced9;
+
+.welcome-page {
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  background-color: $backgroundColor;
+}
+
+.welcome-page-card {
+  display: flex;
+  box-shadow: 10px 5px 5px $boxShadowColor;
+  flex-direction: column;
+  background-color: $cardColor;
+  padding: 30px;
+}
+
+.welcome-page-header {
+  margin-bottom: 10px;
+  color: $textColor;
+  justify-content: center;
+  display: flex;
+}
+
+.mat-card>.mat-card-actions:last-child {
+  margin-bottom: 10px;
+  padding-bottom: 0;
+  display: flex;
+  justify-content: center;
+}
