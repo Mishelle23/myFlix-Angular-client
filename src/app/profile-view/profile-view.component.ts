@@ -25,6 +25,11 @@ export class ProfileViewComponent implements OnInit {
     this.getUserProfile();
   }
 
+  /**
+   * getting data of a user from API, returning json format
+   * @returns object with user details
+   * @function getUserProfile
+   */
   getUserProfile(): void {
     this.fetchApiData.getUserProfile().subscribe((resp: any) => {
       this.user = resp;
@@ -33,12 +38,21 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
+
+  /**
+   * opening dialog where user edits their profile detils using EditProfileComponent
+   */
   openEditUserProfile(): void {
     this.dialog.open(EditProfileComponent, {
       width: '500px'
     });
   }
 
+
+  /**
+   * deleting user and returns back to the welcome page
+   * @function deleteUserProfile
+   */
   deleteUserProfile(): void {
     if (confirm('Are you sure you want to delete your account? This cannot be undone.')) {
       this.router.navigate(['welcome']).then(() => {

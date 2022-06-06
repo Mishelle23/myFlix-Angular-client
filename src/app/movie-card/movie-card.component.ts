@@ -31,6 +31,11 @@ export class MovieCardComponent implements OnInit {
     this.getFavoriteMovies();
   }
 
+
+  /**
+   * getting a list of all movies using API end-point in form of json
+   * @function getAllMovies
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -39,6 +44,11 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+
+  /**
+   * getting favorite movies using API end-point in form of json
+   * @function getFavoriteMovies
+   */
   getFavoriteMovies(): void {
     this.fetchApiData.getFavoriteMovies().subscribe((resp: any) => {
       this.favoriteMovies = resp;
@@ -47,6 +57,13 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+
+  /**
+   * displaying director details by opening dialog from DirectorCardComponent
+   * @param name 
+   * @param bio 
+   * @param birth 
+   */
   openDirectorDialog(name: string, bio: string, birth: string): void {
     this.dialog.open(DirectorCardComponent, {
       data: {
@@ -58,6 +75,12 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+
+  /**
+   * displaying genre details by opening dialog from GenreCardComponent
+   * @param name 
+   * @param description 
+   */
   openGenreDialog(name: string, description: string): void {
     this.dialog.open(GenreCardComponent, {
       data: {
@@ -68,6 +91,12 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+
+  /**
+   * displaying synopsis details by opening dialog from SynopsisCardComponent
+   * @param title 
+   * @param description 
+   */
   openSynopsisDialog(title: string, description: string): void {
     this.dialog.open(SynopsisCardComponent, {
       data: {
@@ -78,6 +107,12 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+
+  /**
+   * adding a movie to list of favorites using API
+   * @param id
+   * @function addFavoriteMovies
+   */
   addToFavoriteMovies(id: string): void {
     console.log(id);
     this.fetchApiData.addFavoriteMovies(id).subscribe((result) => {
@@ -86,6 +121,12 @@ export class MovieCardComponent implements OnInit {
     })
   }
 
+
+  /**
+   * deleting a movie from list of favorites using API
+   * @param id
+   * @function deleteFavoriteMovies
+   */
   deleteFavoriteMovies(id: string): void {
     console.log(id);
     this.fetchApiData.deleteFavoriteMovies(id).subscribe((result) => {

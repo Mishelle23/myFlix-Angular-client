@@ -25,10 +25,12 @@ export class UserLoginFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // This is the function responsible for sending the form inputs to the backend
+  /**
+   * This is the function responsible for sending the form inputs to the backend
+   */
   loginUser(): void {
     this.fetchApiData.userLogin(this.userCredentials).subscribe((response) => {
-
+      // Adding username and token to the local storage
       localStorage.setItem('user', response.user.Username);
       localStorage.setItem('token', response.token);
       this.dialogRef.close(); //this will close modal sucessfully
@@ -36,6 +38,7 @@ export class UserLoginFormComponent implements OnInit {
       this.snackBar.open('You are logged in', 'OK', {
         duration: 2000
       });
+      // Redirecting to the main page with movies
       this.router.navigate(['movies']);
     }, (response) => {
       console.log(response);
