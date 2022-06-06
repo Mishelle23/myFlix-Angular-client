@@ -6,6 +6,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
+import { DirectorCardComponent } from '../director-card/director-card.component';
+import { GenreCardComponent } from '../genre-card/genre-card.component';
+import { SynopsisCardComponent } from '../synopsis-card/synopsis-card.component';
+import { Title } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
@@ -13,6 +18,10 @@ import { Router } from '@angular/router';
 })
 export class ProfileViewComponent implements OnInit {
   user: any = {};
+  movies: any[] = [];
+  FavoriteMovies: any[] = [];
+  username: any = localStorage.getItem('user');
+  displayElement: boolean = false
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -23,6 +32,7 @@ export class ProfileViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserProfile();
+    this.getFavoriteMovies();
   }
 
   /**
@@ -31,13 +41,71 @@ export class ProfileViewComponent implements OnInit {
    * @function getUserProfile
    */
   getUserProfile(): void {
-    this.fetchApiData.getUserProfile().subscribe((resp: any) => {
-      this.user = resp;
-      console.log(this.user);
-      return this.user;
+    const username = localStorage.getItem('user');
+    if (username) {
+      this.fetchApiData.getUserProfile().subscribe((resp: any) => {
+        this.user = resp;
+        console.log(this.user);
+        return this.user;
+      });
+    }
+  }
+
+  getFavoriteMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      this.movies = resp;
+      this.movies.forEach((movie: any) => {
+        if (this.user.FavoriteMovies.includes(movie._id)) {
+          this.FavoriteMovies.push(movie);
+        }
+      });
+    });
+    console.log(this.FavoriteMovies);
+  }
+
+  deleteFavoriteMovies(movieId: string): void {
+    this.fetchApiData.deleteFavoriteMovies(movieId).subscribe((resp: any) => {
+      this.snackBar.open(`Successfully removed ${Title}`, 'OK', {
+        duration: 3000,
+      });
+      setTimeout(function () {
+        window.location.reload();
+      }, 3000);
     });
   }
 
+
+  openSynopsisDialog(title: string, description: string): void {
+    this.dialog.open(SynopsisCardComponent, {
+      data: {
+        Title: title,
+        Description: description,
+      },
+      width: '500px'
+    });
+  }
+
+
+  openDirectorDialog(name: string, bio: string, birth: string): void {
+    this.dialog.open(DirectorCardComponent, {
+      data: {
+        Name: name,
+        Bio: bio,
+        Birth: birth,
+      },
+      width: '500px'
+    });
+  }
+
+  openGenreDialog(name: string, description: string): void {
+    this.dialog.open(GenreCardComponent, {
+      data: {
+        Name: name,
+        Description: description,
+      },
+      width: '500px'
+    });
+  }
 
   /**
    * opening dialog where user edits their profile detils using EditProfileComponent
