@@ -51,6 +51,11 @@ export class ProfileViewComponent implements OnInit {
     }
   }
 
+  /**
+   * getting favorite movies using API end-point in form of json
+   * @function getFavoriteMovies
+   */
+
   getFavoriteMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -63,6 +68,12 @@ export class ProfileViewComponent implements OnInit {
     console.log(this.FavoriteMovies);
   }
 
+
+  /**
+   * deleting favorite movie from user's profile
+   * @function deleteFavoriteMovies
+   * @param movieId 
+   */
   deleteFavoriteMovies(movieId: string): void {
     this.fetchApiData.deleteFavoriteMovies(movieId).subscribe((resp: any) => {
       this.snackBar.open(`Successfully removed ${Title}`, 'OK', {
@@ -74,7 +85,11 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
-
+  /**
+     * displaying synopsis details by opening dialog from SynopsisCardComponent
+     * @param title 
+     * @param description 
+     */
   openSynopsisDialog(title: string, description: string): void {
     this.dialog.open(SynopsisCardComponent, {
       data: {
@@ -85,7 +100,12 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
-
+  /**
+   * displaying director details by opening dialog from DirectorCardComponent
+   * @param name 
+   * @param bio 
+   * @param birth 
+   */
   openDirectorDialog(name: string, bio: string, birth: string): void {
     this.dialog.open(DirectorCardComponent, {
       data: {
@@ -97,6 +117,12 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
+
+  /**
+   * displaying genre details by opening dialog from GenreCardComponent
+   * @param name 
+   * @param description 
+   */
   openGenreDialog(name: string, description: string): void {
     this.dialog.open(GenreCardComponent, {
       data: {

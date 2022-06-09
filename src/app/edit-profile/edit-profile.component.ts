@@ -32,6 +32,11 @@ export class EditProfileComponent implements OnInit {
     this.getUserProfile();
   }
 
+  /**
+   * provides user's data
+   * @function getUserProfile
+   * @returns information of logged in user
+   */
   getUserProfile(): void {
     this.fetchApiData.getUserProfile().subscribe((resp: any) => {
       this.user = resp;
@@ -43,6 +48,8 @@ export class EditProfileComponent implements OnInit {
 
   /**
    * User can edit their profile data: Username, password, email and birthday.
+   * @function editUserProfile
+   * @returns updated data of a user as a json
    */
   editUserProfile(): void {
     this.fetchApiData.editUserProfile(this.userData).subscribe((resp) => {
