@@ -25,3 +25,21 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+# Description
+
+This project has been created for the purpose of building the client-side for an app myFlix using Angular.
+The project is using existing server-side code (REST API and a database) including documentation.
+
+## User stories
+
+- As a user I am looking for possibility to get information of movies including director and genre to improve my knowledge about movies I have seen or planning to see.
+- As a user I want to be able to set up a profile where i can update and save my information as well as adding movies to my favorite list
+
+## Key Features
+
+- Main page is Welcome view allowing the user to log in or register
+- Once login/registration has been successfull a screen with all Movies appears
+- Each movie has set of options, which when clicked user will see details of the movie also option to add movie to favorite movies list of user.
+
+
