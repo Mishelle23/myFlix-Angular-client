@@ -42,4 +42,10 @@ The project is using existing server-side code (REST API and a database) includi
 - Once login/registration has been successfull a screen with all Movies appears
 - Each movie has set of options, which when clicked user will see details of the movie also option to add movie to favorite movies list of user.
 
+# Process of development
 
+### Instalation of Angular
+
+1. Confirm that Angular is not installed 
+
+`ng --version`
